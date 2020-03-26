@@ -5,17 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReamineTimeConversion"
         mc:Ignorable="d"
-        Title="Redmine 作業時間変換ツール" Height="450" Width="800">
+        Title="Redmine 作業時間変換ツール" Height="450" Width="1000">
     <Grid>
-        <Label Content="プロジェクトID" HorizontalAlignment="Left" Margin="30,25,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="130,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Label Content="開始日" HorizontalAlignment="Left" Margin="30,69,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="130,70,0,0" VerticalAlignment="Top"/>
-        <Label Content="終了日" HorizontalAlignment="Left" Margin="30,115,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="130,115,0,0" VerticalAlignment="Top"/>
-        <Button Content="作業時間を取得" HorizontalAlignment="Left" Margin="70,180,0,0" VerticalAlignment="Top" Width="165" Height="55"/>
-        <Label Content="取得した作業時間" HorizontalAlignment="Left" Margin="445,29,0,0" VerticalAlignment="Top" Width="205"/>
-        <TextBox HorizontalAlignment="Left" Height="256" Margin="445,69,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="265"/>
+        <Label Content="URL" HorizontalAlignment="Left" Margin="30,29,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="130,33,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="325"/>
+        <Label Content="プロジェクトID" HorizontalAlignment="Left" Margin="30,69,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="130,73,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="開始日" HorizontalAlignment="Left" Margin="30,113,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top"/>
+        <Label Content="終了日" HorizontalAlignment="Left" Margin="30,158,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="130,159,0,0" VerticalAlignment="Top"/>
+        <Button Content="作業時間を取得" HorizontalAlignment="Left" Margin="70,255,0,0" VerticalAlignment="Top" Width="165" Height="55"/>
+        <Label Content="取得した作業時間" HorizontalAlignment="Left" Margin="470,29,0,0" VerticalAlignment="Top" Width="205"/>
+        <TextBox HorizontalAlignment="Left" Height="256" Margin="470,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="500"/>
 
     </Grid>
 </Window>
