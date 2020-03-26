@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,14 +27,29 @@ namespace ReamineTimeConversion
         }
 
         // 作業時間を取得
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             string url = TextBox_URL.Text;
+            string apikey = TextBox_APIKey.Text;
             string id = TextBox_ID.Text;
 
             string date_start = ((DateTime)(Date_Start.SelectedDate)).ToString("yyyy-MM-dd");
             string date_finish = ((DateTime)(Date_Finish.SelectedDate)).ToString("yyyy-MM-dd");
 
+            string acsess = url + "/time_entries.json?key=" + apikey + "&project_id=" + id + "&from=" + date_start + "&to=" + date_finish + "&limit=100";
+
+            HttpClient client = new HttpClient();
+
+            try
+            {
+                var stream = await client.GetStreamAsync(acsess);
+                var reader = new System.IO.StreamReader(stream);
+                String str = reader.ReadToEnd();
+            }
+            catch (Exception )
+            {
+
+            }
         }
     }
 }

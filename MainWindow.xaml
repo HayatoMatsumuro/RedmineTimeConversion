@@ -10,12 +10,14 @@
     <Grid>
         <Label Content="URL" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_URL" HorizontalAlignment="Left" Height="23" Margin="110,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="345"/>
-        <Label Content="プロジェクトID" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_ID" HorizontalAlignment="Left" Height="23" Margin="110,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="開始日" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="Date_Start" SelectedDate="{Binding Source={x:Static System:DateTime.Today}, Mode=OneTime}" HorizontalAlignment="Left" Margin="110,110,0,0" VerticalAlignment="Top"/>
-        <Label Content="終了日" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="Date_Finish" SelectedDate="{Binding Source={x:Static System:DateTime.Today}, Mode=OneTime}" HorizontalAlignment="Left" Margin="110,155,0,0" VerticalAlignment="Top"/>
+        <Label Content="APIKey" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_APIKey" HorizontalAlignment="Left" Height="23" Margin="110,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240"/>
+        <Label Content="プロジェクトID" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_ID" HorizontalAlignment="Left" Height="23" Margin="110,109,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="開始日" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="Date_Start" SelectedDate="{Binding Source={x:Static System:DateTime.Today}, Mode=OneTime}" HorizontalAlignment="Left" Margin="110,150,0,0" VerticalAlignment="Top"/>
+        <Label Content="終了日" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="Date_Finish" SelectedDate="{Binding Source={x:Static System:DateTime.Today}, Mode=OneTime}" HorizontalAlignment="Left" Margin="110,195,0,0" VerticalAlignment="Top"/>
         <Button Content="作業時間を取得" HorizontalAlignment="Left" Margin="70,255,0,0" VerticalAlignment="Top" Width="165" Height="55" Click="Button_Click"/>
         <Label Content="取得した作業時間" HorizontalAlignment="Left" Margin="660,25,0,0" VerticalAlignment="Top" Width="130"/>
         <TextBox HorizontalAlignment="Left" Height="256" Margin="470,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="500"/>
