@@ -24,5 +24,16 @@ namespace ReamineTimeConversion
         {
             InitializeComponent();
         }
+
+        // 作業時間を取得
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string url = TextBox_URL.Text;
+            string id = TextBox_ID.Text;
+
+            string date_start = ((DateTime)(Date_Start.SelectedDate)).ToString("yyyy-MM-dd");
+            string date_finish = ((DateTime)(Date_Finish.SelectedDate)).ToString("yyyy-MM-dd");
+
+        }
     }
 }
