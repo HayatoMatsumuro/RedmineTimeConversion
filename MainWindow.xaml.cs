@@ -24,6 +24,10 @@ namespace ReamineTimeConversion
         public MainWindow()
         {
             InitializeComponent();
+
+            TextBox_URL.Text = Setting.GetInstance().URL;
+            TextBox_APIKey.Text = Setting.GetInstance().APIKEY;
+            TextBox_ID.Text = Setting.GetInstance().PROJECTID;
         }
 
         // 作業時間を取得
@@ -32,6 +36,12 @@ namespace ReamineTimeConversion
             string url = TextBox_URL.Text;
             string apikey = TextBox_APIKey.Text;
             string id = TextBox_ID.Text;
+
+            // 設定ファイルに保存
+            Setting.GetInstance().URL = url;
+            Setting.GetInstance().APIKEY = apikey;
+            Setting.GetInstance().PROJECTID = id;
+            Setting.SaveSetting();
 
             string date_start = ((DateTime)(Date_Start.SelectedDate)).ToString("yyyy-MM-dd");
             string date_finish = ((DateTime)(Date_Finish.SelectedDate)).ToString("yyyy-MM-dd");
