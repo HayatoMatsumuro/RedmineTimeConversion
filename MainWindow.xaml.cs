@@ -24,6 +24,17 @@ namespace ReamineTimeConversion
     /// </summary>
     public partial class MainWindow : Window
     {
+        private class OutputTimeEntry
+        {
+            public int issue;
+
+            public string title;
+
+            public double total;
+
+            public List<TimeEntry> timeEntryList = new List<TimeEntry>();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +45,7 @@ namespace ReamineTimeConversion
         }
 
         // 作業時間を取得
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             string url = TextBox_URL.Text;
             string apikey = TextBox_APIKey.Text;
@@ -59,12 +70,54 @@ namespace ReamineTimeConversion
 
             try
             {
-                List<TimeEntry> timeEntry = manager.GetObjects<TimeEntry>(parameters);
+                List<TimeEntry> timeEntryList = manager.GetObjects<TimeEntry>(parameters);
 
+                List<OutputTimeEntry> outputTimeEntryList = new List<OutputTimeEntry>();
+
+                foreach ( TimeEntry timeEntry in timeEntryList)
+                {
+                    bool flg = false;
+                    foreach( OutputTimeEntry outputTimeEntry in outputTimeEntryList)
+                    {
+                        if( outputTimeEntry.issue == timeEntry.Issue.Id)
+                        {
+                            outputTimeEntry.total += (double)timeEntry.Hours;
+                            outputTimeEntry.timeEntryList.Add(timeEntry);
+                            flg = true;
+                            break;
+                        }
+                    }
+
+                    if (!flg)
+                    {
+                        // 一致するチケットがない
+                        var issue = manager.GetObject<Issue>(timeEntry.Issue.Id.ToString(), null);
+
+                        OutputTimeEntry newOutputTimeEntry = new OutputTimeEntry();
+                        newOutputTimeEntry.issue = timeEntry.Issue.Id;
+                        newOutputTimeEntry.title = issue.Subject;
+                        newOutputTimeEntry.total = (double)timeEntry.Hours;
+                        newOutputTimeEntry.timeEntryList.Add(timeEntry);
+                        outputTimeEntryList.Add(newOutputTimeEntry);
+                    }
+                }
+
+                string str = "";
+
+                foreach (OutputTimeEntry outputTimeEntry in outputTimeEntryList)
+                {
+                    str = str + "#" + outputTimeEntry.issue  + " " + outputTimeEntry.title + " " + outputTimeEntry.total + " h"+ Environment.NewLine;
+                    foreach( TimeEntry timeEntry in outputTimeEntry.timeEntryList)
+                    {
+                        str = str + " " + timeEntry.Comments + Environment.NewLine;
+                    }
+                    str = str + Environment.NewLine;
+                }
+                TextBox_TimeEntryConversion.Text = str;
             }
             catch( Exception )
             {
-
+                TextBox_TimeEntryConversion.Text = "取得に失敗しました。";
             }
 
         }
