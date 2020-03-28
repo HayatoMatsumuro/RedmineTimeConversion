@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Redmine.Net.Api;
+using Redmine.Net.Api.Types;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -43,23 +46,27 @@ namespace ReamineTimeConversion
             Setting.GetInstance().PROJECTID = id;
             Setting.SaveSetting();
 
+
+
             string date_start = ((DateTime)(Date_Start.SelectedDate)).ToString("yyyy-MM-dd");
             string date_finish = ((DateTime)(Date_Finish.SelectedDate)).ToString("yyyy-MM-dd");
 
             string acsess = url + "/time_entries.json?key=" + apikey + "&project_id=" + id + "&from=" + date_start + "&to=" + date_finish + "&limit=100";
 
-            HttpClient client = new HttpClient();
+            var manager = new RedmineManager(url, apikey);
+
+            var parameters = new NameValueCollection { { RedmineKeys.LIMIT, "100" }, { RedmineKeys.SPENT_ON, "><" + date_start + "|" + date_finish } };
 
             try
             {
-                var stream = await client.GetStreamAsync(acsess);
-                var reader = new System.IO.StreamReader(stream);
-                String str = reader.ReadToEnd();
+                List<TimeEntry> timeEntry = manager.GetObjects<TimeEntry>(parameters);
+
             }
-            catch (Exception )
+            catch( Exception )
             {
 
             }
+
         }
     }
 }
