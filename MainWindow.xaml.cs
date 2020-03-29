@@ -89,6 +89,9 @@ namespace ReamineTimeConversion
                     }
                 }
 
+                // チケット順にソート
+                outputTimeEntryList.Sort((a, b) => a.issue - b.issue);
+
                 // 期間内の作業時間を加工したものを出力
                 string str = "";
 
@@ -97,7 +100,7 @@ namespace ReamineTimeConversion
                     str = str + "#" + outputTimeEntry.issue  + " " + outputTimeEntry.title + " " + outputTimeEntry.total + " h"+ Environment.NewLine;
                     foreach( TimeEntry timeEntry in outputTimeEntry.timeEntryList)
                     {
-                        str = str + "・" + timeEntry.Comments + Environment.NewLine;
+                        str = str + "・" + timeEntry.Comments + " " + timeEntry.Hours + "h" + Environment.NewLine;
                     }
                     str = str + Environment.NewLine;
                 }
