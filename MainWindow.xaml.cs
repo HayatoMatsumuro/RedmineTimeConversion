@@ -3,19 +3,7 @@ using Redmine.Net.Api.Types;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ReamineTimeConversion
 {
@@ -24,6 +12,7 @@ namespace ReamineTimeConversion
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Redmineから取得した作業時間データの出力用クラス
         private class OutputTimeEntry
         {
             public int issue;
@@ -39,39 +28,36 @@ namespace ReamineTimeConversion
         {
             InitializeComponent();
 
+            // 設定ファイルからデータを取得
             TextBox_URL.Text = Setting.GetInstance().URL;
             TextBox_APIKey.Text = Setting.GetInstance().APIKEY;
             TextBox_ID.Text = Setting.GetInstance().PROJECTID;
         }
 
-        // 作業時間を取得
+        // 作業時間を取得ボタン押し
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string url = TextBox_URL.Text;
-            string apikey = TextBox_APIKey.Text;
-            string id = TextBox_ID.Text;
-
             // 設定ファイルに保存
-            Setting.GetInstance().URL = url;
-            Setting.GetInstance().APIKEY = apikey;
-            Setting.GetInstance().PROJECTID = id;
+            Setting.GetInstance().URL = TextBox_URL.Text;
+            Setting.GetInstance().APIKEY = TextBox_APIKey.Text;
+            Setting.GetInstance().PROJECTID = TextBox_ID.Text;
             Setting.SaveSetting();
 
-
-
+            // redmine-net-apiで開始日から終了日までの作業時間データを取得する
             string date_start = ((DateTime)(Date_Start.SelectedDate)).ToString("yyyy-MM-dd");
             string date_finish = ((DateTime)(Date_Finish.SelectedDate)).ToString("yyyy-MM-dd");
 
-            string acsess = url + "/time_entries.json?key=" + apikey + "&project_id=" + id + "&from=" + date_start + "&to=" + date_finish + "&limit=100";
-
-            var manager = new RedmineManager(url, apikey);
-
-            var parameters = new NameValueCollection { { RedmineKeys.LIMIT, "100" }, { RedmineKeys.SPENT_ON, "><" + date_start + "|" + date_finish } };
+            var manager = new RedmineManager(Setting.GetInstance().URL, Setting.GetInstance().APIKEY);
+            var parameters = new NameValueCollection {
+                                { RedmineKeys.LIMIT, "100" },
+                                { RedmineKeys.SPENT_ON, "><" + date_start + "|" + date_finish } };
 
             try
             {
+                // データ取得処理
                 List<TimeEntry> timeEntryList = manager.GetObjects<TimeEntry>(parameters);
 
+                // 出力用のクラスにRedmineから取得したデータを設定
                 List<OutputTimeEntry> outputTimeEntryList = new List<OutputTimeEntry>();
 
                 foreach ( TimeEntry timeEntry in timeEntryList)
@@ -102,6 +88,7 @@ namespace ReamineTimeConversion
                     }
                 }
 
+                // データの出力
                 string str = "";
 
                 foreach (OutputTimeEntry outputTimeEntry in outputTimeEntryList)
@@ -109,7 +96,7 @@ namespace ReamineTimeConversion
                     str = str + "#" + outputTimeEntry.issue  + " " + outputTimeEntry.title + " " + outputTimeEntry.total + " h"+ Environment.NewLine;
                     foreach( TimeEntry timeEntry in outputTimeEntry.timeEntryList)
                     {
-                        str = str + " " + timeEntry.Comments + Environment.NewLine;
+                        str = str + "・" + timeEntry.Comments + Environment.NewLine;
                     }
                     str = str + Environment.NewLine;
                 }
@@ -119,7 +106,6 @@ namespace ReamineTimeConversion
             {
                 TextBox_TimeEntryConversion.Text = "取得に失敗しました。";
             }
-
         }
     }
 }
