@@ -50,6 +50,7 @@ namespace ReamineTimeConversion
             var manager = new RedmineManager(Setting.GetInstance().URL, Setting.GetInstance().APIKEY);
             var parameters = new NameValueCollection {
                                 { RedmineKeys.LIMIT, "100" },
+                                { RedmineKeys.PROJECT_ID, Setting.GetInstance().PROJECTID},
                                 { RedmineKeys.SPENT_ON, "><" + date_start + "|" + date_finish } };
 
             try
