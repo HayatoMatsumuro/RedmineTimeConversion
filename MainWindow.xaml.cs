@@ -47,14 +47,15 @@ namespace ReamineTimeConversion
             string date_start = ((DateTime)(Date_Start.SelectedDate)).ToString("yyyy-MM-dd");
             string date_finish = ((DateTime)(Date_Finish.SelectedDate)).ToString("yyyy-MM-dd");
 
-            var manager = new RedmineManager(Setting.GetInstance().URL, Setting.GetInstance().APIKEY);
-            var parameters = new NameValueCollection {
+            try
+            {
+                var manager = new RedmineManager(Setting.GetInstance().URL, Setting.GetInstance().APIKEY);
+                var parameters = new NameValueCollection {
                                 { RedmineKeys.LIMIT, "100" },
                                 { RedmineKeys.PROJECT_ID, Setting.GetInstance().PROJECTID},
                                 { RedmineKeys.SPENT_ON, "><" + date_start + "|" + date_finish } };
 
-            try
-            {
+
                 // データ取得処理
                 List<TimeEntry> timeEntryList = manager.GetObjects<TimeEntry>(parameters);
 
