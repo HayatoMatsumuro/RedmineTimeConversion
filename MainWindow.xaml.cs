@@ -88,7 +88,7 @@ namespace ReamineTimeConversion
                     }
                 }
 
-                // データの出力
+                // 期間内の作業時間を加工したものを出力
                 string str = "";
 
                 foreach (OutputTimeEntry outputTimeEntry in outputTimeEntryList)
